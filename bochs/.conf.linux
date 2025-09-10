@@ -40,6 +40,8 @@ case $which_config in
                 --enable-evex \
                 --enable-cet \
                 --enable-pci \
+                --enable-smp \
+                --enable-large-ramfile \
                 --enable-clgd54xx \
                 --enable-geforce \
                 --enable-voodoo \
@@ -73,6 +75,8 @@ case $which_config in
                 --enable-evex \
                 --enable-cet \
                 --enable-pci \
+                --enable-smp \
+                --enable-large-ramfile \
                 --enable-clgd54xx \
                 --enable-geforce \
                 --enable-voodoo \
