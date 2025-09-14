@@ -5,6 +5,7 @@
 *.la
 *.orig
 *.rej
+*.log
 obj-debug/
 obj-release/
 .vscode
