@@ -36,6 +36,11 @@ Bit32u crc32(const Bit8u *buf, int len);
 
 extern Bit32u dbg_cpu;
 
+#if BX_SUPPORT_IODEBUG
+BOCHSAPI unsigned bx_dbg_get_cpu_id(void *cpu);
+BOCHSAPI bx_address bx_dbg_get_instruction_pointer(void *cpu);
+#endif
+
 BOCHSAPI void dbg_printf(const char *fmt, ...);
 
 typedef enum
@@ -91,8 +96,8 @@ void bx_dbg_set_rip_value(bx_address value);
 void bx_dbg_load_segreg(unsigned reg, unsigned value);
 bx_address bx_dbg_get_laddr(Bit16u sel, bx_address ofs);
 void bx_dbg_step_over_command(void);
-void bx_dbg_trace_command(bool enable);
-void bx_dbg_trace_reg_command(bool enable);
+BOCHSAPI void bx_dbg_trace_command(bool enable);
+BOCHSAPI void bx_dbg_trace_reg_command(bool enable);
 void bx_dbg_trace_mem_command(bool enable);
 void bx_dbg_ptime_command(void);
 void bx_dbg_timebp_command(bool absolute, Bit64u time);
