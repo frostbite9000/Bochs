@@ -2104,7 +2104,7 @@ Bit32u BX_CPU_C::VMenterLoadCheckGuestState(Bit64u *qualification)
 
   guest.cr0 = (BX_CPU_THIS_PTR cr0.get32() & VMX_KEEP_CR0_BITS) | (guest.cr0 & ~VMX_KEEP_CR0_BITS);
 
-  if (! check_CR0(guest.cr0)) {
+  if (! check_CR0(guest.cr0, true /* vmenter */)) {
     BX_PANIC(("VMENTER CR0 is broken !"));
   }
   if (! check_CR4(guest.cr4)) {
@@ -2656,6 +2656,11 @@ void BX_CPU_C::VMexitLoadHostState(void)
 #if BX_SUPPORT_X86_64
   if (x86_64_host)
      BX_DEBUG(("VMEXIT to x86-64 host"));
+
+  if (long64_mode() && !x86_64_host) {
+    BX_ERROR(("VMABORT: VMEXIT to 32-bit host from 64-bit guest !"));
+    VMabort(VMABORT_VMEXIT_TO_32BIT_HOST_FROM_64BIT_GUEST);
+  }
 
 #if BX_SUPPORT_VMX >= 2
   // modify EFER.LMA / EFER.LME before setting CR4
